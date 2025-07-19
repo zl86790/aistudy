@@ -117,3 +117,221 @@
 
 > ✅ **原始模型**：适合通用 NLP/CV 任务，泛化能力强，跨语言表现更稳定。  
 > 🧠 **修改后模型**：在特定任务上（如中文文本、语音识别）性能更佳，但泛化性较弱，需严格匹配任务类型。 
+
+
+
+
+
+
+
+# changed_models_large 文件使用了尽可能大的模型，期望获取更精准的结果。
+# 以下是调整模型后的输出与老师原文件输出的对比
+
+---
+
+# 🔧 使用 Pipeline API 调用更多预定义任务
+
+---
+
+## 🏷️ Named Entity Recognition（实体识别）
+
+模型：[`dslim/bert-large-NER`](https://huggingface.co/dslim/bert-large-NER)
+模型大小：**1.33GB**
+下载量：**148,469**
+
+输入文本：
+
+> Hugging Face is a French company based in New York City.
+
+**原始输出（未合并）**：
+
+```yaml
+{'entity': 'I-ORG', 'score': 0.9968, 'index': 1, 'word': 'Hu', 'start': 0, 'end': 2}
+{'entity': 'I-ORG', 'score': 0.9293, 'index': 2, 'word': '##gging', 'start': 2, 'end': 7}
+{'entity': 'I-ORG', 'score': 0.9763, 'index': 3, 'word': 'Face', 'start': 8, 'end': 12}
+{'entity': 'I-MISC', 'score': 0.9983, 'index': 6, 'word': 'French', 'start': 18, 'end': 24}
+{'entity': 'I-LOC', 'score': 0.999, 'index': 10, 'word': 'New', 'start': 42, 'end': 45}
+{'entity': 'I-LOC', 'score': 0.9987, 'index': 11, 'word': 'York', 'start': 46, 'end': 50}
+{'entity': 'I-LOC', 'score': 0.9992, 'index': 12, 'word': 'City', 'start': 51, 'end': 55}
+```
+
+**变更后输出**：
+
+```yaml
+{'entity': 'B-ORG', 'score': np.float32(0.995), 'word': 'Hu', 'start': 0, 'end': 2}
+{'entity': 'I-ORG', 'score': np.float32(0.9456), 'word': '##gging', 'start': 2, 'end': 7}
+{'entity': 'I-ORG', 'score': np.float32(0.9917), 'word': 'Face', 'start': 8, 'end': 12}
+{'entity': 'B-MISC', 'score': np.float32(0.9977), 'word': 'French', 'start': 18, 'end': 24}
+{'entity': 'B-LOC', 'score': np.float32(0.9986), 'word': 'New', 'start': 42, 'end': 45}
+{'entity': 'I-LOC', 'score': np.float32(0.9989), 'word': 'York', 'start': 46, 'end': 50}
+{'entity': 'I-LOC', 'score': np.float32(0.9994), 'word': 'City', 'start': 51, 'end': 55}
+```
+
+**合并实体结果对比：**
+
+原始：
+
+```yaml
+[{'entity_group': 'ORG', 'score': 0.9674639, 'word': 'Hugging Face', 'start': 0, 'end': 12},
+ {'entity_group': 'MISC', 'score': 0.99828726, 'word': 'French', 'start': 18, 'end': 24},
+ {'entity_group': 'LOC', 'score': 0.99896103, 'word': 'New York City', 'start': 42, 'end': 55}]
+```
+
+变更后：
+
+```yaml
+[{'entity_group': 'ORG', 'score': np.float32(0.9674638), 'word': 'Hugging Face', 'start': 0, 'end': 12},
+ {'entity_group': 'MISC', 'score': np.float32(0.99828726), 'word': 'French', 'start': 18, 'end': 24},
+ {'entity_group': 'LOC', 'score': np.float32(0.99896103), 'word': 'New York City', 'start': 42, 'end': 55}]
+```
+
+📝 **结论**：更换模型后，NER 任务的精度提升空间有限。
+
+---
+
+## ❓ Question Answering（问答）
+
+模型：[deepset/roberta-large-squad2](https://huggingface.co/deepset/roberta-large-squad2)
+模型大小：**1.42GB**
+下载量：**30,383**
+
+**Q1: What is the name of the repository?**
+
+```yaml
+原始: score: 0.9327, start: 30, end: 54, answer: huggingface/transformers
+变更后: score: 0.9855, start: 30, end: 54, answer: huggingface/transformers
+```
+
+**Q2: What is the capital of China?**
+
+```yaml
+原始: score: 0.9458, start: 115, end: 122, answer: Beijing
+变更后: score: 0.8053, start: 115, end: 122, answer: Beijing
+```
+
+📝 **结论**：对于简单问答，更换模型带来的精度提升也十分有限。
+
+---
+
+## ✂️ Summarization（文本摘要）
+
+模型：[facebook/bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn)
+模型大小：**1.63GB**
+下载量：**3,138,984**
+
+**示例 1：**
+
+```yaml
+原始: the Transformer is the first sequence transduction model based entirely on attention...
+变更后: The Transformer is the first sequence transduction model based entirely on attention. It replaces the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention...
+```
+
+**示例 2：**
+
+```yaml
+原始: large language models (LLMs) are very large deep learning models pre-trained on vast amounts of data...
+变更后: Large language models (LLM) are very large deep learning models that are pre-trained on vast amounts of data. Transformer LLMs are capable of unsupervised training...
+```
+
+📝 **结论**：摘要任务中模型更换效果明显，内容更完整、语言更自然。
+
+---
+
+## 🔊 Audio 音频分类
+
+模型：[MIT/ast-finetuned-audioset-16-16-0.442](https://huggingface.co/MIT/ast-finetuned-audioset-16-16-0.442)
+模型大小：**344MB**
+下载量：**188**
+
+**原始分类结果：**
+
+```yaml
+[{'score': 0.4532, 'label': 'hap'},
+ {'score': 0.3622, 'label': 'sad'},
+ {'score': 0.0943, 'label': 'neu'},
+ {'score': 0.0903, 'label': 'ang'}]
+```
+
+**变更后结果（部分）：**
+
+```yaml
+[{'score': 0.4519, 'label': 'Speech'},
+ {'score': 0.1678, 'label': 'Male speech, man speaking'},
+ {'score': 0.1043, 'label': 'Narration, monologue'},
+ {'score': 0.0598, 'label': 'Rain on surface'},
+ {'score': 0.0421, 'label': 'Rain'},
+ {'score': 0.0279, 'label': 'Raindrop'},
+ {'score': 0.0172, 'label': 'Run'},
+ ... 共数十类 ...]
+```
+
+📝 **结论**：新模型可识别的类别更多，分类更细致，表现显著提升。
+
+---
+
+## 🎙️ Automatic Speech Recognition（ASR）
+
+模型：[openai/whisper-large-v3](https://huggingface.co/openai/whisper-large-v3)
+模型大小：**3.09GB**
+下载量：**3,085,363**
+
+**语音输入：**
+
+```yaml
+{'text': ' I have a dream that one day this nation will rise up and live out the true meaning of its creed.'}
+```
+
+**变更前后结果一致**
+
+📝 **结论**：测试样本简单，未观察到显著差异。
+
+---
+
+## 🖼️ Computer Vision（图像分类）
+
+模型：[google/vit-large-patch16-224](https://huggingface.co/google/vit-large-patch16-224)
+模型大小：**1.22GB**
+下载量：**27,276**
+
+**示例 1（野猫图像）**
+
+```yaml
+原始: top-1 'lynx' score: 0.4335
+变更后: top-1 'lynx' score: 0.2391
+```
+
+**示例 2（大熊猫图像）**
+
+```yaml
+原始: 'giant panda' score: 0.9962
+变更后: 'giant panda' score: 0.9747
+```
+
+📝 **结论**：将 ViT-Base（320MB）升级为 ViT-Large（1.22GB）后，识别精度未提升，甚至略有下降。
+尤其第一张图中的 **Pallas's cat（兔狲）** 未被正确识别，说明通用模型仍有盲区。
+
+---
+
+## 📦 Object Detection（目标检测）
+
+模型：`facebook/detr-resnet-101`
+模型大小：**243MB**
+下载量：**41,130**
+
+**示例结果：**
+
+```yaml
+原始:
+  - cat, score: 0.9985, box: [78, 57, 309, 371]
+  - dog, score: 0.9890, box: [279, 20, 482, 416]
+
+变更后:
+  - dog, score: 0.9987, box: [281, 21, 486, 415]
+  - cat, score: 0.9950, box: [76, 63, 314, 373]
+```
+
+📝 **结论**：从 ResNet-50（165MB）升级到 ResNet-101（243MB）后，检测框精度略有提升，但由于图像过于简单，变化不显著。
+
+---
+
+
