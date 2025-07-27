@@ -1,0 +1,95 @@
+# 第二周作业总结报告
+
+本项目包含了第二周的四个作业任务，分别对应文本分类、问答微调，以及 Whisper 模型在中法语语音识别任务上的微调与评估。
+
+---
+
+## 📚 作业 1：YelpReviewFull 数据集文本分类任务
+
+- 📁 文件：`01_fine-tune-quickstart`
+- 📚 课程链接：[fine-tune-quickstart.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/transformers/fine-tune-quickstart.ipynb)
+- ⚙️ 使用数据：YelpReviewFull 全量数据（实际仅使用了1000条样本，因硬件限制）
+- 🎯 任务目标：比较使用少量样本训练时的准确率表现
+
+### 📊 对比结果
+
+| Epoch | Training Loss | Validation Loss | Accuracy |
+|-------|---------------|------------------|----------|
+| **老师结果** ||||
+| 1     | 1.2421        | 1.0909           | 0.526    |
+| 2     | 0.9014        | 0.9601           | 0.591    |
+| 3     | 0.6382        | 0.9784           | 0.592    |
+| **我的结果** ||||
+| 1     | 1.2233        | 1.0545           | 0.546    |
+| 2     | 0.9227        | 0.9809           | 0.584    |
+| 3     | 0.6569        | 0.9997           | 0.609    |
+
+---
+
+## 📚 作业 2：问答系统微调与再训练
+
+- 📁 文件：`02_fine-tune-QA`
+- 📚 课程链接：[fine-tune-QA.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/transformers/fine-tune-QA.ipynb)
+- ⚙️ 使用优化设置：使用 16-bit 精度 + 减小 batch size 以适应显存
+- 🎯 任务目标：加载本地模型进行评估并优化 F1 分数
+
+### 📊 对比结果
+
+| 指标             | 老师结果     | 我的结果     |
+|------------------|--------------|--------------|
+| F1 分数          | 83.64        | **85.19**    |
+| 精确匹配率 (EM)  | 74.88        | **77.03**    |
+
+---
+
+## 🔊 作业 3：中文 Whisper 模型训练过程分析（LoRA）
+
+- 📁 文件：`03_peft_lora_whisper-large-v2-part640`
+- 📚 课程链接：[peft_lora_whisper-large-v2.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/peft/peft_lora_whisper-large-v2.ipynb)
+- 🎯 任务目标：观察训练过程中 Train Loss 和 Validation Loss 的变化
+
+### 📊 对比结果
+
+| Epoch | Training Loss | Validation Loss |
+|-------|---------------|-----------------|
+| 老师结果 | 1.5024        | 1.0813          |
+| 我的结果 | **0.4950**    | **0.3976**      |
+
+> 注：使用老师原始的数据量进行训练，未使用全量语料。
+
+---
+
+## 🔊 作业 4：法语 Whisper 模型评估（LoRA）
+
+- 📁 文件：
+  - `04_peft_lora_whisper-large-v2-fr-tested`
+  - `05_peft_lora_whisper-large-v2-fr-jiwer`
+- 📚 课程链接：[peft_lora_whisper-large-v2.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/peft/peft_lora_whisper-large-v2.ipynb)
+- 🎯 任务目标：切换为法语语料，训练并评估 WER / CER
+
+### 📊 测试集评估结果：
+
+- **词错误率（WER）**：0.2532  
+- **字符错误率（CER）**：0.0685
+
+### 🎧 随机样本对比：
+
+- **示例 1**  
+  - 🟢 真实文本：Elle est aussi alimentée par la décharge du lac Kawacekamik et quelques ruisseaux riverains.  
+  - 🔵 预测文本：Elle est aussi alimentée par la décharge du lac Kawa-Sékamik et quelques ruisseaux riverains.
+
+- **示例 2**  
+  - 🟢 真实文本：Aucune de celles-là.  
+  - 🔵 预测文本：aucune ne celle.
+
+- **示例 3**  
+  - 🟢 真实文本：Dès lors l'importance du village grandit avec sa population.  
+  - 🔵 预测文本：Dès lors, l'importance du village grandit avec sa cocculation.
+
+- **示例 4**  
+  - 🟢 真实文本：Le combien sommes-nous ?  
+  - 🔵 预测文本：Le combien sont-nous?
+
+- **示例 5**  
+  - 🟢 真实文本：D'étranges contusions sur le cou ne sont pas remarquées par le médecin.  
+  - 🔵 预测文本：Détrange contusion sur le cou ne sont pas remarquées par le médecin.
