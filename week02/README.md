@@ -95,9 +95,12 @@
   - 🔵 预测文本：Détrange contusion sur le cou ne sont pas remarquées par le médecin.
 
 
+
+
 # 补充内容
-## 📚 作业 1：YelpReviewFull 数据集文本分类任务
-## 使用全量 YelpReviewFull 数据集训练分类模型
+### 下面内容使用了全量数据重新进行了训练
+### 📚 作业 1：YelpReviewFull 数据集文本分类任务
+### 使用全量 YelpReviewFull 数据集训练分类模型
 📁 文件：06_fine-tune-quickstart-all-datasets
 
 🎯 任务目标：比较使用全量数据集训练后的模型效果，与使用1000条样本时的结果进行对比
