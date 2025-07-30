@@ -1,13 +1,28 @@
 # 第二周作业总结报告
 
-本项目包含了第二周的四个作业任务，分别对应文本分类、问答微调，以及 Whisper 模型在中法语语音识别任务上的微调与评估。
+本项目包含第二周的四个作业任务，涵盖以下内容：
 
-06_fine-tune-quickstart-all-datasets.ipynb 使用了完整的数据集进行了训练，在 NVIDIA Quadro RTX 6000 （24G显存）上 Epoch 3 运行了 18个小时得到的结果
-05_peft_lora_whisper-large-v2-fr-jiwer.ipynb 为法语训练集
-08_peft_lora_whisper-large-v2-ja-jiwer.ipynb 为日语训练集
-由于 从 datasets v2.14.0（2024年初） 开始，Hugging Face 官方逐步废弃了基于 .py 脚本定义的数据集格式。
-所以这里使用的是 mozilla-foundation/common_voice_13_0 的 parquet格式的预处理数据集。
-07_fine-tune-QA-overfitting.ipynb 在尝试进一步提高 F1 score 时出现了明显的过拟合
+- 文本分类  
+- 问答任务微调  
+- Whisper 模型在中法语语音识别任务上的微调与评估
+
+具体文件说明如下：
+
+- `06_fine-tune-quickstart-all-datasets.ipynb`  
+  使用完整数据集进行训练，在 **NVIDIA Quadro RTX 6000（24GB 显存）** 上运行至第 3 个 Epoch，耗时约 **18 小时**。
+
+- `05_peft_lora_whisper-large-v2-fr-jiwer.ipynb`  
+  法语语音识别任务微调结果。
+
+- `08_peft_lora_whisper-large-v2-ja-jiwer.ipynb`  
+  日语语音识别任务微调结果。
+
+- `07_fine-tune-QA-overfitting.ipynb`  
+  针对问答任务尝试进一步提升 F1 分数，但出现了明显的**过拟合现象**。
+
+> ⚠️ 从 `datasets v2.14.0`（2024 年初）开始，Hugging Face 官方逐步弃用基于 `.py` 脚本定义的数据集格式。  
+> 所以这里采用的是 `mozilla-foundation/common_voice_13_0` 的 **Parquet 格式预处理数据集**。
+
 
 ---
 
