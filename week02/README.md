@@ -20,6 +20,11 @@
 - `07_fine-tune-QA-overfitting.ipynb`  
   针对问答任务尝试进一步提升 F1 分数，但出现了明显的**过拟合现象**。
 
+- `09_fine-tune-QA-v2-F1-92.45.ipynb`  
+  通过进一步的优化将 F2 分数从 **85.19** 提高到了 **92.45**
+  
+
+
 > ⚠️ 从 `datasets v2.14.0`（2024 年初）开始，Hugging Face 官方逐步弃用基于 `.py` 脚本定义的数据集格式。  
 > 所以这里采用的是 `mozilla-foundation/common_voice_13_0` 的 **Parquet 格式预处理数据集**。
 
