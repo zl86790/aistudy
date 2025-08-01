@@ -85,6 +85,21 @@
 
 > 注：使用老师原始的数据量进行训练，未使用全量语料。
 
+- 📁 文件：`03_peft_lora_whisper-large-v2-part640`
+- 📚 课程链接：[peft_lora_whisper-large-v2.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/peft/peft_lora_whisper-large-v2.ipynb)
+- 🎯 任务目标：观察训练过程中 Train Loss 和 Validation Loss 的变化
+
+#### 使用完整中文数据集训练的结果对比
+
+### 📊 对比结果
+
+| Epoch | Training Loss | Validation Loss |
+|-------|---------------|-----------------|
+| 老师结果 | 1.5024        | 1.0813          |
+| 我的结果 | **0.3057**    | **0.361165**      |
+
+
+
 ---
 
 ## 🔊 作业 4：法语 Whisper 模型评估（LoRA）
