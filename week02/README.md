@@ -7,24 +7,29 @@
 - Whisper 模型在中法语语音识别任务上的微调与评估
 
 具体文件说明如下：
-
+##### 1、使用完整的 YelpReviewFull 数据集训练，对比看 Acc 最高能到多少。课程代码（ https://github.com/DjangoPeng/LLM-quickstart/blob/main/transformers/fine-tune-quickstart.ipynb ）
 - `06_fine-tune-quickstart-all-datasets.ipynb`  
   使用完整数据集进行训练，在 **NVIDIA Quadro RTX 6000（24GB 显存）** 上运行至第 3 个 Epoch，耗时约 **18 小时**。
+  
+##### 2、加载本地保存的模型，进行评估和再训练更高的 F1 Score。课程代码（ https://github.com/DjangoPeng/LLM-quickstart/blob/main/transformers/fine-tune-QA.ipynb ） 
+- `07_fine-tune-QA-overfitting.ipynb`  
+  针对问答任务尝试进一步提升 F1 分数，但出现了明显的**过拟合现象**。
+- `09_fine-tune-QA-v2-F1-92.45.ipynb`  
+  通过进一步的优化将 F1 分数从 **85.19** 提高到了 **92.45**
+- `10_fine-tune-QA-retrain-F1-92.62.ipynb`  
+  通过进一步的优化将 F1 分数从 **92.45** 提高到了 **92.62**
 
+##### 1、在“LoRA 低秩适配 OpenAI Whisper-Large-V2 语音识别任务”中，为中文语料的训练过程增加过程评估，观察 Train Loss 和 Validation Loss 变化。课程代码（ https://github.com/DjangoPeng/LLM-quickstart/blob/main/peft/peft_lora_whisper-large-v2.ipynb ） 
+##### 2、在“LoRA 低秩适配 OpenAI Whisper-Large-V2 语音识别任务”中，当 LoRA 模型训练完成后，使用测试集进行完整的模型评估。课程代码（ https://github.com/DjangoPeng/LLM-quickstart/blob/main/peft/peft_lora_whisper-large-v2.ipynb ） 
+- `05_peft_lora_whisper-large-v2-part640.ipynb`  
+  中文语音识别任务微调结果（部分数据集）。
+- `11_peft_lora_whisper-large-v2-all.ipynb`  
+  中文语音识别任务微调结果（完整数据集）。
 - `05_peft_lora_whisper-large-v2-fr-jiwer.ipynb`  
   法语语音识别任务微调结果。
-
 - `08_peft_lora_whisper-large-v2-ja-jiwer.ipynb`  
   日语语音识别任务微调结果。
 
-- `07_fine-tune-QA-overfitting.ipynb`  
-  针对问答任务尝试进一步提升 F1 分数，但出现了明显的**过拟合现象**。
-
-- `09_fine-tune-QA-v2-F1-92.45.ipynb`  
-  通过进一步的优化将 F1 分数从 **85.19** 提高到了 **92.45**
-  
-- `10_fine-tune-QA-retrain-F1-92.62.ipynb`  
-  通过进一步的优化将 F1 分数从 **92.45** 提高到了 **92.62**
 
 > ⚠️ 从 `datasets v2.14.0`（2024 年初）开始，Hugging Face 官方逐步弃用基于 `.py` 脚本定义的数据集格式。  
 > 所以这里采用的是 `mozilla-foundation/common_voice_13_0` 的 **Parquet 格式预处理数据集**。
