@@ -10,7 +10,9 @@
 
 - 使用了课程提供的代码：[AutoGPTQ_opt-2.7b.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/quantization/AutoGPTQ_opt-2.7b.ipynb)
 - 实际运行的文件：`01_AutoGPTQ_opt-2.7b.ipynb`
-- 由于显存限制，使用了 facebook/opt-1.3b 模型进行测试。
+  由于显存限制，使用了 facebook/opt-1.3b 模型进行测试。
+- 实际运行的文件：`01_AutoGPTQ_opt-6.7b.ipynb`
+  在Quadro6000 24G显存上，使用了 facebook/opt-6.7b 模型进行测试。
 
 ### ✅ 2. 使用 AWQ 量化 OPT-6.7B 模型
 
