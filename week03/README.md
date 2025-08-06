@@ -10,16 +10,22 @@
 
 - 使用了课程提供的代码：[AutoGPTQ_opt-2.7b.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/quantization/AutoGPTQ_opt-2.7b.ipynb)
 - 实际运行的文件：`01_AutoGPTQ_opt-2.7b.ipynb`
-  由于显存限制，使用了 facebook/opt-1.3b 模型进行测试。
+  - 由于显存限制，使用了 facebook/opt-1.3b 模型进行测试。
 - 实际运行的文件：`01_AutoGPTQ_opt-6.7b.ipynb`
-  在Quadro6000 24G显存上，使用了 facebook/opt-6.7b 模型进行测试。
+  - 在Quadro6000 24G显存上，使用了 facebook/opt-6.7b 模型进行测试。
 
-### ✅ 2. 使用 AWQ 量化 OPT-6.7B 模型
+### ✅ 2. 使用 AWQ 量化 OPT-2.7B 模型
 
 - Facebook OPT 模型地址：https://huggingface.co/facebook?search_models=opt
 - 实际运行的文件：`02_AWQ-opt-TinyLlama-1.1B-Chat-v1.0.ipynb`
-- 由于硬件资源有限，选择了轻量级模型 [TinyLlama/TinyLlama-1.1B-Chat-v1.0](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0) 进行 AWQ 量化测试。
+  - 由于硬件资源有限，选择了轻量级模型 [TinyLlama/TinyLlama-1.1B-Chat-v1.0](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0) 进行 AWQ 量化测试。
+ 
+### ✅ 3. 使用 BitsAndBytes 量化 OPT-2.7B 模型 
+通过查阅资料了解到 BitsAndBytes（bnb）可以在不重新训练或量化的情况下，在线加载时自动进行量化。而且 bnb 和模型的兼容性比较好，是HuggingFace官方提供的。
+所以也进行了尝试。
 
+- 实际运行的文件：`02_AWQ-opt-2.7b-bnb.ipynb`
+  - 使用 **BitsAndBytes** 在加载模型时，直接把权重转化为 4bit进行量化，适合快速部署低内存推理。
 ---
 
 ## 📌 作业二：QLoRA 微调实验
