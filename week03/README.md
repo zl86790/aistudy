@@ -38,6 +38,14 @@
 - 文件：
   - `03_peft_qlora_chatglm.ipynb`
   - `04_peft_chatglm_inference.ipynb`
+ 
+### ✅ max_steps=200 样本实验
+
+- 学习过程中了解到可以使用 max_steps 参数来控制 训练过程最多执行多少个梯度更新（training steps），所以也进行了尝试。
+- 开启 shuffle 之后，直接使用 max_steps=1790 可能会导致训练样本重复，这是和直接设置 num_train_epochs=1 不太一样的地方。
+- 文件：
+  - `03_peft_qlora_chatglm_maxsteps200.ipynb`
+  - `04_peft_chatglm_inference_maxsteps200.ipynb`
 
 ### ✅ 10K 样本实验
 
