@@ -11,6 +11,7 @@
 ├── 01_qlora_chatglm3_timestamp-lizhe-dataset-overfit.ipynb  # 过拟合训练
 ├── 02_chatglm_inference.ipynb                        # 模型推理与对比
 ├── 03_gen_dataset_deepseek.ipynb                     # 使用 Deepseek 生成新数据集
+├── gen_dataset_deepseek.py                           # 转成python的文件
 ├── data/
 │   ├── zhouyi_dataset_20240118_163659.csv
 │   ├── zhouyi_dataset_20240118_163659_content_error.csv
@@ -74,3 +75,4 @@
 2. **过拟合会导致泛化能力下降**：虽然训练集上的表现极好，但对未见过的问题表现较差。  
 3. **基准模型在泛化与稳定性上更均衡**。
 4. **gen_dataset_deepseek.py** 是转换成python后的文件
+
