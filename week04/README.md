@@ -11,6 +11,7 @@
 ├── 01_qlora_chatglm3_timestamp-lizhe-dataset-overfit.ipynb  # 过拟合训练
 ├── 02_chatglm_inference.ipynb                        # 模型推理与对比
 ├── 03_gen_dataset_deepseek.ipynb                     # 使用 Deepseek 生成新数据集
+├── gen_dataset_deepseek.py                           # 使用 Deepseek 生成新数据集的python文件
 ├── data/
 │   ├── zhouyi_dataset_20240118_163659.csv
 │   ├── zhouyi_dataset_20240118_163659_content_error.csv
