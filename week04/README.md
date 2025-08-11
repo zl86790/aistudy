@@ -52,7 +52,7 @@
 
 ## 🚀 实验步骤
 
-### **第一步：基准训练**
+### **✅第一步：基准训练**
 参考微调代码：  
 [qlora_chatglm3_timestamp.ipynb](https://github.com/DjangoPeng/LLM-quickstart/blob/main/chatglm/qlora_chatglm3_timestamp.ipynb)
 
@@ -66,7 +66,7 @@
 
 ---
 
-### **第二步：错误数据集训练**
+### **✅第二步：错误数据集训练**
 - 数据集：  
   将原有数据集中的 **回答** 打乱生成错误版本  
   `zhouyi_dataset_20240118_163659_content_error.csv`
@@ -78,7 +78,7 @@
 
 ---
 
-### **第三步：过拟合实验**
+### **✅第三步：过拟合实验**
 - 数据集生成：  
   使用 `03_gen_dataset_deepseek.ipynb` 调用 Deepseek API 生成新数据集  
   `zhouyi_train_dataset_lizhe.csv`
@@ -91,7 +91,7 @@
 
 ---
 
-### **第四步：推理与对比**
+### **✅第四步：推理与对比**
 - 推理脚本：`02_chatglm_inference.ipynb`
 - 功能：加载不同版本的模型，使用相同输入进行推理，并输出对比结果
 
@@ -114,6 +114,7 @@
 2. **过拟合会导致泛化能力下降**：虽然训练集上的表现极好，但对未见过的问题表现较差。  
 3. **基准模型在泛化与稳定性上更均衡**。
 4. **gen_dataset_deepseek.py** 是转换成python后的文件
+
 
 
 
