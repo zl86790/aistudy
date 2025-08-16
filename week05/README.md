@@ -99,7 +99,6 @@ Use the Input below to create an instruction, which could have been used to gene
 | **PyTorch SDPA** | 有一定优化，但没有 flash-attn 深 | 中等   | 中等                  |
 | **普通 attention** | 无优化                          | 最耗显存 | 最慢                  |
 
-> 本项目 GPU 支持 Flash Attention，但演示环境限制未启用，实际场景中建议优先使用以提升效率。
 
 #### 量化与参数高效微调
 
