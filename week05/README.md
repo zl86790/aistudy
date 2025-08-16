@@ -84,6 +84,7 @@ Given this paragraph about the history of Beijing, when did Beijing get the curr
 ```
 
 #### 核心作用
+##### 通过统一模板，将分散任务转化为模型可理解的 "从响应反推指令" 的标准化任务，强化模型对 "指令意图" 的理解能力，为后续遵循用户指令打下基础。
 
 ####  应用场景与优势
 
