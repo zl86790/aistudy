@@ -130,10 +130,6 @@ Given this paragraph about the history of Beijing, when did Beijing get the curr
 2. **高效训练实践意义**：Flash Attention 与量化技术结合，可显著降低显存消耗并提升训练速度  
 3. **端到端流程掌握**：从数据处理、模型配置到训练执行、推理验证，完整掌握 LLaMA 2 指令微调方法  
 
-### 待优化方向
-
-- 推理结果偶尔存在冗余信息，可通过调整生成参数（如降低温度系数）或增加后处理逻辑优化  
-- 扩展训练数据规模并延长训练轮次，进一步提升模型对复杂指令的理解能力  
 
 ---
 
