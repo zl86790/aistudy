@@ -77,10 +77,10 @@ Use the Input below to create an instruction, which could have been used to gene
 Use the Input below to create an instruction, which could have been used to generate the input using an LLM.
 
 ### Input:
-1403年明朝时期，北京获得了现在的名称
+In 1403, during the Ming dynasty, Beijing got its current name.
 
 ### Response:
-根据这段关于北京历史的文字，北京何时获得现在的名称？
+Given this paragraph about the history of Beijing, when did Beijing get the current name?
 ```
 
 #### 核心作用
