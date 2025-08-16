@@ -70,7 +70,7 @@ Use the Input below to create an instruction, which could have been used to gene
 """
 ```
 
-#### 示例效果（显示原 Markdown 内容）
+#### 示例效果
 
 ```markdown
 ### Instruction:
@@ -85,7 +85,20 @@ Given this paragraph about the history of Beijing, when did Beijing get the curr
 
 #### 核心作用
 
-通过统一模板，将分散任务转化为模型可理解的 `"从响应反推指令"` 的标准化任务，强化模型对 `"指令意图"` 的理解能力，为后续遵循用户指令打下基础。
+####  应用场景与优势
+
+#####  跨任务通用性
+- 不论是问答、摘要、分类还是生成任务，都可以统一为 **"指令-输入-响应"** 格式，便于模型在不同任务间迁移学习。
+
+##### 提升生成质量
+- 模型不仅学会生成答案，还能理解指令的意图，减少偏离用户需求的输出。
+
+##### 便于数据扩展
+- 可通过自动化脚本将现有文本数据批量转换为 Alpaca 风格，快速构建微调数据集。
+
+##### 增强可解释性
+- 每条样本都明确标注 **Instruction**、**Input**、**Response**，方便团队分析模型行为和调优策略。
+
 
 ---
 
