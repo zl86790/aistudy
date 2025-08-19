@@ -207,12 +207,14 @@ SFTTrainer 的核心价值在于 **简化指令微调流程**，自动处理生�
   "input": "我喜欢学习",
   "output": "I like studying"
 }
-核心理念：统一各种任务为 “指令-输入-输出” 的形式，让模型可以通用地理解不同指令。
+```
 
-数据集本身较小，但可以用于 SFT 微调大模型。
+### 核心理念：统一各种任务为 “指令-输入-输出” 的形式，让模型可以通用地理解不同指令。
 
-2️⃣ SFTTrainer 与 Alpaca 风格的关系
-方面	说明
+### 数据集本身较小，但可以用于 SFT 微调大模型。
+
+## 2️⃣ SFTTrainer 与 Alpaca 风格的关系
+
 数据输入	SFTTrainer 需要格式化的训练数据，Alpaca 风格正好符合 {"instruction","input","output"} 的结构
 训练目标	Alpaca 风格数据用于训练模型理解指令和生成响应，SFTTrainer 是执行训练的工具
 搭配方式	SFTTrainer + Alpaca 风格数据 → 快速得到指令微调后的大语言模型
