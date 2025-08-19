@@ -215,7 +215,70 @@ SFTTrainer 的核心价值在于 **简化指令微调流程**，自动处理生�
 
 ## 2️⃣ SFTTrainer 与 Alpaca 风格的关系
 
-数据输入	SFTTrainer 需要格式化的训练数据，Alpaca 风格正好符合 {"instruction","input","output"} 的结构
-训练目标	Alpaca 风格数据用于训练模型理解指令和生成响应，SFTTrainer 是执行训练的工具
-搭配方式	SFTTrainer + Alpaca 风格数据 → 快速得到指令微调后的大语言模型
-可扩展性	Alpaca 风格只是数据规范，可以用在其他 SFT 训练器（如普通 Trainer + 输出 masking）
+
+- 数据输入	SFTTrainer 需要格式化的训练数据，Alpaca 风格正好符合 {"instruction","input","output"} 的结构
+- 训练目标	Alpaca 风格数据用于训练模型理解指令和生成响应，SFTTrainer 是执行训练的工具
+- 搭配方式	SFTTrainer + Alpaca 风格数据 → 快速得到指令微调后的大语言模型
+- 可扩展性	Alpaca 风格只是数据规范，可以用在其他 SFT 训练器（如普通 Trainer + 输出 masking）
+
+---
+
+```python
+def format_instruction(sample_data):
+    """
+    Formats the given data into a structured instruction format.
+
+    Parameters:
+    sample_data (dict): A dictionary containing 'response' and 'instruction' keys.
+
+    Returns:
+    str: A formatted string containing the instruction, input, and response.
+    """
+    # Check if required keys exist in the sample_data
+    if 'response' not in sample_data or 'instruction' not in sample_data:
+        # Handle the error or return a default message
+        return "Error: 'response' or 'instruction' key missing in the input data."
+
+    return f"""### Instruction:
+Use the Input below to create an instruction, which could have been used to generate the input using an LLM. 
+ 
+### Input:
+{sample_data['response']}
+ 
+### Response:
+{sample_data['instruction']}
+"""
+
+```
+
+
+## 老师的代码实际上这里做了一个 **反向指令生成（Reverse Instruction Generation）** ，这是一个在大语言模型训练里越来越流行的思路。
+
+# 反向指令生成 (Reverse Instruction Generation)
+
+## 1️⃣ 定义
+
+**反向指令生成** 是指：
+
+已知一个模型输出（Response 或生成文本），训练模型去预测或生成可能对应的指令（Instruction）。
+
+换句话说，就是 **从结果反推问题**。
+
+- **正向微调**：Instruction → Input → Response  
+- **反向微调**：Response → Instruction  
+
+---
+
+## 2️⃣ 为什么要做
+
+### 扩充指令数据集
+- 标注好的指令-输入-输出数据集通常有限  
+- 已有的输出文本本身是资源，通过反向生成指令，可以创建更多训练样本  
+
+### 增强模型理解能力
+- 模型不仅能完成指令，也能理解已有文本背后的意图  
+- 对“推理、抽象”类任务特别有帮助  
+
+### 自监督训练
+- 对于没有明确指令标注的大规模文本数据，可以利用已有文本生成潜在指令  
+- 降低人工标注成本  
