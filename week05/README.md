@@ -150,4 +150,70 @@ Given this paragraph about the history of Beijing, when did Beijing get the curr
 ## 文件说明
 
 - `llama2_instruction_tuning.ipynb`：模型微调完整流程，含数据格式化、模型配置、训练执行  
-- `llama2_inference.ipynb`：微调后模型的推理验证，对比生成结果与真实指令  
+- `llama2_inference.ipynb`：微调后模型的推理验证，对比生成结果与真实指令
+
+
+---
+
+老师的示例代码中，使用了 SFTTrainer ，SFTTrainer 需要格式化的训练数据，Alpaca 风格正好符合 {"instruction","input","output"} 的结构。
+所以可以说 SFTTrainer 和 Alpaca 风格是非常契合的“绝配”组合。
+
+# SFTTrainer
+
+**SFTTrainer** 是一种专门用于大语言模型（LLM）指令微调（Supervised Fine-Tuning, SFT）的训练工具或训练器。它的设计目的是让模型更好地理解用户指令，并生成符合预期的文本输出。相比普通的 Hugging Face `Trainer`，SFTTrainer 针对生成任务做了优化。
+
+## 核心特点
+
+### 1. 专注于指令微调
+- 处理格式化数据：`{"instruction": "...", "input": "...", "output": "..."}`  
+- 自动拼接 instruction + input + output，并生成 labels  
+- 对输出部分计算损失（loss masking），避免惩罚输入内容  
+
+### 2. 数据预处理和增强
+- 自动 tokenize 输入和输出  
+- 可以添加元数据或做特殊字段处理  
+- 支持 batch 处理、padding 和 attention mask  
+
+### 3. 训练优化
+- 支持 gradient accumulation、低显存训练  
+- 集成量化训练（bitsandbytes）、LoRA/PEFT 方案  
+- 管理学习率、优化器和 checkpoint 保存  
+
+### 4. 输出和评估
+- 保存的模型可直接用于生成任务，如问答或聊天  
+- 支持评估 loss、perplexity 等生成相关指标  
+
+### 5. 适用场景
+- 将基础大模型微调成聊天模型或指令理解模型  
+- 小样本领域微调，提高特定任务表现  
+- 在显存受限的硬件上做生成任务微调  
+
+## 总结
+SFTTrainer 的核心价值在于 **简化指令微调流程**，自动处理生成任务特有的训练需求，并支持低显存训练，使大模型微调变得更高效、方便。
+
+---
+
+# SFTTrainer 与 Alpaca 风格
+
+## 1️⃣ Alpaca 风格简介
+
+**Alpaca-Style** 是一种指令微调的数据格式/风格，由斯坦福 Alpaca 项目提出。  
+
+数据形式通常如下：
+
+```json
+{
+  "instruction": "翻译这句话为英文",
+  "input": "我喜欢学习",
+  "output": "I like studying"
+}
+核心理念：统一各种任务为 “指令-输入-输出” 的形式，让模型可以通用地理解不同指令。
+
+数据集本身较小，但可以用于 SFT 微调大模型。
+
+2️⃣ SFTTrainer 与 Alpaca 风格的关系
+方面	说明
+数据输入	SFTTrainer 需要格式化的训练数据，Alpaca 风格正好符合 {"instruction","input","output"} 的结构
+训练目标	Alpaca 风格数据用于训练模型理解指令和生成响应，SFTTrainer 是执行训练的工具
+搭配方式	SFTTrainer + Alpaca 风格数据 → 快速得到指令微调后的大语言模型
+可扩展性	Alpaca 风格只是数据规范，可以用在其他 SFT 训练器（如普通 Trainer + 输出 masking）
