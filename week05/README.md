@@ -254,9 +254,12 @@ Use the Input below to create an instruction, which could have been used to gene
 
 ## 老师的代码实际上这里做了一个 **反向指令生成（Reverse Instruction Generation）** ，这是一个在大语言模型训练里越来越流行的思路。
 
-# 反向指令生成 (Reverse Instruction Generation)
+#### 反向指令生成 (Reverse Instruction Generation)
+```scss
+已有输出 (Response) → 模型 → 预测指令 (Instruction)
+```
 
-## 1️⃣ 定义
+### 1️⃣ 定义
 
 **反向指令生成** 是指：
 
@@ -269,16 +272,16 @@ Use the Input below to create an instruction, which could have been used to gene
 
 ---
 
-## 2️⃣ 为什么要做
+### 2️⃣ 为什么要做
 
-### 扩充指令数据集
+#### 扩充指令数据集
 - 标注好的指令-输入-输出数据集通常有限  
 - 已有的输出文本本身是资源，通过反向生成指令，可以创建更多训练样本  
 
-### 增强模型理解能力
+#### 增强模型理解能力
 - 模型不仅能完成指令，也能理解已有文本背后的意图  
 - 对“推理、抽象”类任务特别有帮助  
 
-### 自监督训练
+#### 自监督训练
 - 对于没有明确指令标注的大规模文本数据，可以利用已有文本生成潜在指令  
 - 降低人工标注成本  
